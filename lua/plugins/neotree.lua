@@ -1,8 +1,14 @@
+if true then return {} end
 return {
   "nvim-neo-tree/neo-tree.nvim",
 
   keys = {
-    { "<leader>fe", ":Neotree toggle reveal_force_cwd<cr>", desc = "Explorer", silent = true },
+    {
+      "<leader>fe",
+      ":Neotree toggle reveal_force_cwd<cr>",
+      desc = "Explorer",
+      silent = true,
+    },
     { "<leader>fo", ":Neotree<cr>", desc = "Focus explorer", silent = true },
   },
 
@@ -16,6 +22,9 @@ return {
 
   opts = {
     -- close_if_last_window = true,
+    clipboard = {
+      sync = "universal",
+    },
     source_selector = { winbar = true, statusline = false },
     window = {
       position = "right",
@@ -33,7 +42,8 @@ return {
       },
     },
     filesystem = {
-      follow_current_file = { enabled = true },
+      hijack_netrw_behavior = "open_current",
+      follow_current_file = { enabled = true, leave_dirs_open = false },
       filtered_items = {
         always_show = { ".gitignore" },
       },
