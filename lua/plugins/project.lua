@@ -24,7 +24,7 @@ return {
       enable_autochdir = true,
       fzf_lua = {
         enabled = true,
-      }
+      },
     })
   end,
 }

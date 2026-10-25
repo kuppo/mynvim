@@ -68,17 +68,13 @@ local function activate_env(args)
         and vim.split(vim.env.JULIA_DEPOT_PATH, vim.fn.has("win32") == 1 and ";" or ":")
       or { vim.fn.expand("~/.julia") }
     local environments = {}
-    vim.list_extend(
-      environments,
-      vim.fs.find(root_files, { type = "file", upward = true, limit = math.huge })
-    )
+    vim.list_extend(environments, vim.fs.find(root_files, { type = "file", upward = true, limit = math.huge }))
     for _, depot_path in ipairs(depot_paths) do
       local depot_env = vim.fs.joinpath(vim.fs.normalize(depot_path), "environments")
       vim.list_extend(
         environments,
         vim.fs.find(function(name, env_path)
-          return vim.tbl_contains(root_files, name)
-            and string.sub(env_path, #depot_env + 1):match("^/[^/]*$")
+          return vim.tbl_contains(root_files, name) and string.sub(env_path, #depot_env + 1):match("^/[^/]*$")
         end, { path = depot_env, type = "file", limit = math.huge })
       )
     end

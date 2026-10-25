@@ -28,9 +28,7 @@ local function ds_pinyin_lsp_off(bufnr)
       ["completion_on"] = false,
     })
   else
-    vim.notify(
-      "notification $/turn/completion is not supported by any servers active on the current buffer"
-    )
+    vim.notify("notification $/turn/completion is not supported by any servers active on the current buffer")
   end
 end
 
@@ -42,9 +40,7 @@ local function ds_pinyin_lsp_on(bufnr)
       ["completion_on"] = true,
     })
   else
-    vim.notify(
-      "notification $/turn/completion is not supported by any servers active on the current buffer"
-    )
+    vim.notify("notification $/turn/completion is not supported by any servers active on the current buffer")
   end
 end
 

@@ -66,11 +66,7 @@ end
 local function roslyn_handlers()
   return {
     ["workspace/projectInitializationComplete"] = function(_, _, ctx)
-      vim.notify(
-        "Roslyn project initialization complete",
-        vim.log.levels.INFO,
-        { title = "roslyn_ls" }
-      )
+      vim.notify("Roslyn project initialization complete", vim.log.levels.INFO, { title = "roslyn_ls" })
       local client = assert(vim.lsp.get_client_by_id(ctx.client_id))
       refresh_diagnostics(client)
       return vim.NIL
@@ -153,8 +149,7 @@ end
 return {
   name = "roslyn_ls",
   cmd = {
-    vim.fn.executable("Microsoft.CodeAnalysis.LanguageServer") == 1
-        and "Microsoft.CodeAnalysis.LanguageServer"
+    vim.fn.executable("Microsoft.CodeAnalysis.LanguageServer") == 1 and "Microsoft.CodeAnalysis.LanguageServer"
       or "roslyn-language-server",
     "--stdio",
   },
@@ -188,10 +183,7 @@ return {
         vim.lsp.util.apply_workspace_edit(workspace_edit, client.offset_encoding)
       ---@diagnostic enable: undefined-field
       else
-        vim.notify(
-          "roslyn_ls: completionComplexEdit args not understood: " .. vim.inspect(args),
-          vim.log.levels.WARN
-        )
+        vim.notify("roslyn_ls: completionComplexEdit args not understood: " .. vim.inspect(args), vim.log.levels.WARN)
       end
     end,
 

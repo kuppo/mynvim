@@ -136,19 +136,12 @@ local function refresh_access_token(refresh_token)
 
   local response = curl_post(
     config.gitlab_url .. "/oauth/token",
-    string.format(
-      "client_id=%s&refresh_token=%s&grant_type=refresh_token",
-      config.client_id,
-      refresh_token
-    ),
+    string.format("client_id=%s&refresh_token=%s&grant_type=refresh_token", config.client_id, refresh_token),
     { ["Content-Type"] = "application/x-www-form-urlencoded" }
   )
 
   if response.status ~= 200 then
-    vim.notify(
-      "Failed to refresh token: " .. (response.body or "Unknown error"),
-      vim.log.levels.ERROR
-    )
+    vim.notify("Failed to refresh token: " .. (response.body or "Unknown error"), vim.log.levels.ERROR)
     return nil
   end
 
@@ -389,10 +382,7 @@ return {
     -- Handle token validation errors
     client.handlers["$/gitlab/token/check"] = function(_, result)
       if result and result.reason then
-        vim.notify(
-          string.format("GitLab Duo: %s - %s", result.reason, result.message or ""),
-          vim.log.levels.ERROR
-        )
+        vim.notify(string.format("GitLab Duo: %s - %s", result.reason, result.message or ""), vim.log.levels.ERROR)
 
         -- Try to refresh if possible
         local token_data = load_token()
@@ -417,10 +407,7 @@ return {
     client.handlers["$/gitlab/featureStateChange"] = function(_, result)
       if result and result.state == "disabled" and result.checks then
         for _, check in ipairs(result.checks) do
-          vim.notify(
-            string.format("GitLab Duo: %s", check.message or check.id),
-            vim.log.levels.WARN
-          )
+          vim.notify(string.format("GitLab Duo: %s", check.message or check.id), vim.log.levels.WARN)
         end
       end
     end
@@ -438,10 +425,7 @@ return {
     end
 
     if not token then
-      vim.notify(
-        "GitLab Duo: Not authenticated. Run :LspGitLabDuoSignIn to sign in.",
-        vim.log.levels.WARN
-      )
+      vim.notify("GitLab Duo: Not authenticated. Run :LspGitLabDuoSignIn to sign in.", vim.log.levels.WARN)
     elseif status == "refreshed" then
       vim.notify("GitLab Duo: Token refreshed automatically", vim.log.levels.INFO)
     end

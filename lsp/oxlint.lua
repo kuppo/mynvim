@@ -105,8 +105,7 @@ return {
       end
     end
     local init_options = config.init_options or {}
-    init_options.settings =
-      vim.tbl_extend("force", init_options.settings or {} --[[@as table]], settings)
+    init_options.settings = vim.tbl_extend("force", init_options.settings or {} --[[@as table]], settings)
 
     init_params.initializationOptions = init_options
   end,
