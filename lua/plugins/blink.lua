@@ -3,13 +3,18 @@ return {
 
   event = { "InsertEnter", "CmdlineEnter" },
 
+  dependencies = {
+    "L3MON4D3/LuaSnip",
+  },
+
   build = function()
     require("blink.cmp").build():pwait()
   end,
 
   opts = {
+    snippets = { preset = "luasnip" },
     sources = {
-      default = { "snippets", "lsp", "buffer", "path" },
+      default = { "lsp", "snippets", "buffer", "path" },
       per_filetype = {
         org = { "orgmode" },
       },
