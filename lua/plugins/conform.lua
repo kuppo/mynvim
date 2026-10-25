@@ -1,7 +1,7 @@
 return {
   "stevearc/conform.nvim",
 
-  evnet = "UIEnter",
+  event = "UIEnter",
 
   keys = {
     {
