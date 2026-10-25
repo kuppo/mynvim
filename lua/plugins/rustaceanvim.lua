@@ -4,7 +4,7 @@ return {
   init = function()
     vim.g.rustaceanvim = {
       server = {
-        on_attach = function(client, bufnr) end,
+        on_attach = function() end,
         default_settings = {
           ["rust-analyzer"] = {
             lens = {
