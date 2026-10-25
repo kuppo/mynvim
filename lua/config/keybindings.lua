@@ -21,7 +21,7 @@ map(
 map("n", "Y", "y$", { desc = "Yank to end of line" })
 
 -- quick move in insert mode
-map("i", "<C-b>", "<left>")
+map("i", "<C-v>", "<left>")
 map("i", "<C-f>", "<right>")
 
 -- Center screen when jumping
