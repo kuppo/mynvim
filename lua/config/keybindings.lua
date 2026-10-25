@@ -4,13 +4,18 @@ vim.g.maplocalleader = ","
 
 local map = vim.keymap.set
 
-map("i", "jk", "<esc>")
+-- map("i", "jk", "<esc>")
 
 -- F1 to open help is annoying
 map({ "i", "n", "v" }, "<F1>", "")
 
 -- clear hl
-map("n", "<leader>ur", "<cmd>nohlsearch<Bar>diffupdate<Bar>normal! <C-L><CR>", { desc = "Clear search highlights" })
+map(
+  "n",
+  "<leader>ur",
+  "<cmd>nohlsearch<Bar>diffupdate<Bar>normal! <C-L><CR>",
+  { desc = "Clear search highlights" }
+)
 
 -- Y to EOL
 map("n", "Y", "y$", { desc = "Yank to end of line" })
@@ -26,10 +31,10 @@ map("n", "<C-d>", "<C-d>zz", { desc = "Half page down (centered)" })
 map("n", "<C-u>", "<C-u>zz", { desc = "Half page up (centered)" })
 
 -- Better paste behavior
-map("x", "<leader>p", '"_dP', { desc = "Paste without yanking" })
+map("x", "<leader>p", "\"_dP", { desc = "Paste without yanking" })
 
 -- Delete without yanking
-map("n", "x", '"_x', { desc = "Delete single char without yanking" })
+map("n", "x", "\"_x", { desc = "Delete single char without yanking" })
 
 -- Buffer navigation
 map("n", "L", "<cmd>bnext<CR>", { desc = "Next buffer" })
