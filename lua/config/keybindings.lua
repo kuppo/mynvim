@@ -20,6 +20,10 @@ map(
 -- Y to EOL
 map("n", "Y", "y$", { desc = "Yank to end of line" })
 
+-- quick move in insert mode
+map("i", "<C-b>", "<left>")
+map("i", "<C-f>", "<right>")
+
 -- Center screen when jumping
 map("n", "n", "nzzzv", { desc = "Next search result (centered)" })
 map("n", "N", "Nzzzv", { desc = "Previous search result (centered)" })
