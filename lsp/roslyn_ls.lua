@@ -66,7 +66,11 @@ end
 local function roslyn_handlers()
   return {
     ["workspace/projectInitializationComplete"] = function(_, _, ctx)
-      vim.notify("Roslyn project initialization complete", vim.log.levels.INFO, { title = "roslyn_ls" })
+      vim.notify(
+        "Roslyn project initialization complete",
+        vim.log.levels.INFO,
+        { title = "roslyn_ls" }
+      )
       local client = assert(vim.lsp.get_client_by_id(ctx.client_id))
       refresh_diagnostics(client)
       return vim.NIL
@@ -86,21 +90,15 @@ end
 ---@return boolean
 local function is_decompiled(bufname)
   local _, endpos = bufname:find("[/\\]MetadataAsSource[/\\]")
-  if endpos == nil then
-    return false
-  end
+  if endpos == nil then return false end
   return vim.fn.finddir(bufname:sub(1, endpos), uv.os_tmpdir()) ~= ""
 end
 
 ---@param client vim.lsp.Client
 ---@param action table
 local function apply_action(client, action)
-  if action.edit then
-    vim.lsp.util.apply_workspace_edit(action.edit, client.offset_encoding)
-  end
-  if action.command then
-    client:exec_cmd(action.command)
-  end
+  if action.edit then vim.lsp.util.apply_workspace_edit(action.edit, client.offset_encoding) end
+  if action.command then client:exec_cmd(action.command) end
 end
 
 ---@param client vim.lsp.Client
@@ -122,9 +120,7 @@ local function handle_fix_all_action(client, command, bufnr)
   vim.ui.select(flavors, {
     prompt = "Fix All Scope:",
   }, function(chosen_scope)
-    if not chosen_scope then
-      return
-    end
+    if not chosen_scope then return end
 
     client:request("codeAction/resolveFixAll", {
       title = command.title,
@@ -138,9 +134,7 @@ local function handle_fix_all_action(client, command, bufnr)
         )
         return
       end
-      if resolved then
-        apply_action(client, resolved)
-      end
+      if resolved then apply_action(client, resolved) end
     end, bufnr)
   end)
 end
@@ -149,7 +143,8 @@ end
 return {
   name = "roslyn_ls",
   cmd = {
-    vim.fn.executable("Microsoft.CodeAnalysis.LanguageServer") == 1 and "Microsoft.CodeAnalysis.LanguageServer"
+    vim.fn.executable("Microsoft.CodeAnalysis.LanguageServer") == 1
+        and "Microsoft.CodeAnalysis.LanguageServer"
       or "roslyn-language-server",
     "--stdio",
   },
@@ -183,7 +178,10 @@ return {
         vim.lsp.util.apply_workspace_edit(workspace_edit, client.offset_encoding)
       ---@diagnostic enable: undefined-field
       else
-        vim.notify("roslyn_ls: completionComplexEdit args not understood: " .. vim.inspect(args), vim.log.levels.WARN)
+        vim.notify(
+          "roslyn_ls: completionComplexEdit args not understood: " .. vim.inspect(args),
+          vim.log.levels.WARN
+        )
       end
     end,
 
@@ -197,9 +195,7 @@ return {
       end
 
       local function handle(action)
-        if not action then
-          return
-        end
+        if not action then return end
 
         if action.data and not action.edit and not action.command then
           client:request("codeAction/resolve", action, function(err, resolved)
@@ -207,9 +203,7 @@ return {
               vim.notify(err.message or tostring(err), vim.log.levels.ERROR)
               return
             end
-            if resolved then
-              handle(resolved)
-            end
+            if resolved then handle(resolved) end
           end, ctx.bufnr)
           return
         end
@@ -231,9 +225,7 @@ return {
             return item.title or (item.command and item.command.title) or "Unnamed action"
           end,
         }, function(choice)
-          if choice then
-            handle(choice)
-          end
+          if choice then handle(choice) end
         end)
       end
 
@@ -263,9 +255,7 @@ return {
         end)
       end
 
-      if root_dir then
-        cb(root_dir)
-      end
+      if root_dir then cb(root_dir) end
     else
       -- Decompiled code (example: "/tmp/MetadataAsSource/f2bfba/DecompilationMetadataAsSourceFileProvider/d5782a/Console.cs")
       local prev_buf = vim.fn.bufnr("#")
@@ -273,9 +263,7 @@ return {
         name = "roslyn_ls",
         bufnr = prev_buf ~= 1 and prev_buf or nil,
       })[1]
-      if client then
-        cb(client.config.root_dir)
-      end
+      if client then cb(client.config.root_dir) end
     end
   end,
   on_init = {
@@ -301,9 +289,7 @@ return {
 
   on_attach = function(client, bufnr)
     -- avoid duplicate autocmds for same buffer
-    if vim.api.nvim_get_autocmds({ buffer = bufnr, group = group })[1] then
-      return
-    end
+    if vim.api.nvim_get_autocmds({ buffer = bufnr, group = group })[1] then return end
 
     vim.api.nvim_create_autocmd({ "BufWritePost", "InsertLeave" }, {
       group = group,

@@ -19,7 +19,8 @@ return {
     if vim.fn.executable("flow") == 1 then
       cmd = { "flow", "lsp" }
     else
-      local flow_bin = (config or {}).root_dir and vim.fs.joinpath(config.root_dir, "node_modules/.bin/flow")
+      local flow_bin = (config or {}).root_dir
+        and vim.fs.joinpath(config.root_dir, "node_modules/.bin/flow")
       if flow_bin and vim.fn.executable(flow_bin) == 1 then
         cmd = { flow_bin, "lsp" }
       else

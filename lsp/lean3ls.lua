@@ -26,9 +26,7 @@ return {
     local stdlib_dir
     do
       local _, endpos = fname:find("/lean/library")
-      if endpos then
-        stdlib_dir = fname:sub(1, endpos)
-      end
+      if endpos then stdlib_dir = fname:sub(1, endpos) end
     end
 
     on_dir(

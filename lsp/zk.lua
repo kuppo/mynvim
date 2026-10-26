@@ -20,18 +20,14 @@ local function zk_list(client, bufnr, opts, action)
       vim.api.nvim_echo({ { "zk.list error\n" }, { vim.inspect(err) } }, true, {})
       return
     end
-    if result == nil then
-      return
-    end
+    if result == nil then return end
 
     vim.ui.select(result, {
       format_item = function(item)
         return item.title
       end,
     }, function(item)
-      if item ~= nil then
-        action(vim.fs.joinpath(client.root_dir, item.path), item.title)
-      end
+      if item ~= nil then action(vim.fs.joinpath(client.root_dir, item.path), item.title) end
     end)
   end)
 end
@@ -53,9 +49,7 @@ return {
           vim.api.nvim_echo({ { "zk.index error\n" }, { vim.inspect(err) } }, true, {})
           return
         end
-        if result ~= nil then
-          vim.api.nvim_echo({ { vim.inspect(result) } }, false, {})
-        end
+        if result ~= nil then vim.api.nvim_echo({ { vim.inspect(result) } }, false, {}) end
       end)
     end, { desc = "ZkIndex" })
 
@@ -75,9 +69,7 @@ return {
           vim.api.nvim_echo({ { "zk.tag.list error\n" }, { vim.inspect(err) } }, true, {})
           return
         end
-        if result == nil then
-          return
-        end
+        if result == nil then return end
 
         vim.ui.select(result, {
           format_item = function(item)

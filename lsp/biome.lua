@@ -19,9 +19,7 @@ return {
     local cmd = "biome"
     if (config or {}).root_dir then
       local local_cmd = vim.fs.joinpath(config.root_dir, "node_modules/.bin", cmd)
-      if vim.fn.executable(local_cmd) == 1 then
-        cmd = local_cmd
-      end
+      if vim.fn.executable(local_cmd) == 1 then cmd = local_cmd end
     end
     return vim.lsp.rpc.start({ cmd, "lsp-proxy" }, dispatchers)
   end,
@@ -56,7 +54,8 @@ return {
     -- Set a lower priority to avoid spawning multiple servers on monorepos
     local biome_config_files = { "biome.json", "biome.jsonc" }
     -- Give the root markers equal priority by wrapping them in a table
-    root_markers = vim.fn.has("nvim-0.11.3") == 1 and { root_markers, biome_config_files, { ".git" } }
+    root_markers = vim.fn.has("nvim-0.11.3") == 1
+        and { root_markers, biome_config_files, { ".git" } }
       or vim.list_extend(root_markers, vim.list_extend(biome_config_files, { ".git" }))
 
     -- We fallback to the current working directory if no project root is found
@@ -73,9 +72,7 @@ return {
       upward = true,
       stop = vim.fs.dirname(project_root),
     })[1]
-    if not is_buffer_using_biome then
-      return
-    end
+    if not is_buffer_using_biome then return end
 
     on_dir(project_root)
   end,

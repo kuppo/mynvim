@@ -22,24 +22,99 @@ return {
     local map = vim.keymap.set
     vim.api.nvim_create_autocmd("LspAttach", {
       callback = function()
-        map("n", "<leader>cr", "<cmd>FzfLua lsp_references<cr>", { desc = "References", buffer = true })
+        map(
+          "n",
+          "<leader>cr",
+          "<cmd>FzfLua lsp_references<cr>",
+          { desc = "References", buffer = true }
+        )
         map("n", "<leader>cn", function()
           vim.lsp.buf.rename()
         end, { desc = "Rename", buffer = true })
-        map("n", "<leader>cd", "<cmd>FzfLua lsp_definitions<cr>", { desc = "Definitions", buffer = true })
-        map("n", "<leader>cD", "<cmd>FzfLua lsp_declarations<cr>", { desc = "Declarations", buffer = true })
-        map("n", "<leader>ctt", "<cmd>FzfLua lsp_typedefs<cr>", { desc = "Type Definitions", buffer = true })
-        map("n", "<leader>ctu", "<cmd>FzfLua lsp_type_super<cr>", { desc = "Super type", buffer = true })
-        map("n", "<leader>ctd", "<cmd>FzfLua lsp_type_sub<cr>", { desc = "Sub type", buffer = true })
-        map("n", "<leader>ci", "<cmd>FzfLua lsp_implementations<cr>", { desc = "Implementations", buffer = true })
-        map("n", "<leader>cs", "<cmd>FzfLua lsp_document_symbols<cr>", { desc = "Document symbols", buffer = true })
-        map("n", "<leader>cS", "<cmd>FzfLua lsp_workspace_symbols<cr>", { desc = "Document symbols", buffer = true })
-        map("n", "<leader>cci", "<cmd>FzfLua lsp_incoming_calls<cr>", { desc = "Incoming calls", buffer = true })
-        map("n", "<leader>cco", "<cmd>FzfLua lsp_outcoming_calls<cr>", { desc = "Outcoming calls", buffer = true })
-        map("n", "<leader>ca", "<cmd>FzfLua lsp_code_actions<cr>", { desc = "Code actions", buffer = true })
-        map("n", "<leader>cf", "<cmd>FzfLua lsp_finder<cr>", { desc = "Find LSP locations", buffer = true })
-        map("n", "<leader>cf", "<cmd>FzfLua lsp_finder<cr>", { desc = "Find LSP locations", buffer = true })
-        map("n", "<leader>ce", "<cmd>FzfLua diagnostics_document<cr>", { desc = "Document Diagnostics", buffer = true })
+        map(
+          "n",
+          "<leader>cd",
+          "<cmd>FzfLua lsp_definitions<cr>",
+          { desc = "Definitions", buffer = true }
+        )
+        map(
+          "n",
+          "<leader>cD",
+          "<cmd>FzfLua lsp_declarations<cr>",
+          { desc = "Declarations", buffer = true }
+        )
+        map(
+          "n",
+          "<leader>ctt",
+          "<cmd>FzfLua lsp_typedefs<cr>",
+          { desc = "Type Definitions", buffer = true }
+        )
+        map(
+          "n",
+          "<leader>ctu",
+          "<cmd>FzfLua lsp_type_super<cr>",
+          { desc = "Super type", buffer = true }
+        )
+        map(
+          "n",
+          "<leader>ctd",
+          "<cmd>FzfLua lsp_type_sub<cr>",
+          { desc = "Sub type", buffer = true }
+        )
+        map(
+          "n",
+          "<leader>ci",
+          "<cmd>FzfLua lsp_implementations<cr>",
+          { desc = "Implementations", buffer = true }
+        )
+        map(
+          "n",
+          "<leader>cs",
+          "<cmd>FzfLua lsp_document_symbols<cr>",
+          { desc = "Document symbols", buffer = true }
+        )
+        map(
+          "n",
+          "<leader>cS",
+          "<cmd>FzfLua lsp_workspace_symbols<cr>",
+          { desc = "Document symbols", buffer = true }
+        )
+        map(
+          "n",
+          "<leader>cci",
+          "<cmd>FzfLua lsp_incoming_calls<cr>",
+          { desc = "Incoming calls", buffer = true }
+        )
+        map(
+          "n",
+          "<leader>cco",
+          "<cmd>FzfLua lsp_outcoming_calls<cr>",
+          { desc = "Outcoming calls", buffer = true }
+        )
+        map(
+          "n",
+          "<leader>ca",
+          "<cmd>FzfLua lsp_code_actions<cr>",
+          { desc = "Code actions", buffer = true }
+        )
+        map(
+          "n",
+          "<leader>cf",
+          "<cmd>FzfLua lsp_finder<cr>",
+          { desc = "Find LSP locations", buffer = true }
+        )
+        map(
+          "n",
+          "<leader>cf",
+          "<cmd>FzfLua lsp_finder<cr>",
+          { desc = "Find LSP locations", buffer = true }
+        )
+        map(
+          "n",
+          "<leader>ce",
+          "<cmd>FzfLua diagnostics_document<cr>",
+          { desc = "Document Diagnostics", buffer = true }
+        )
         map(
           "n",
           "<leader>cE",

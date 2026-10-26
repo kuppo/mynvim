@@ -27,20 +27,25 @@ local function reload_workspace(bufnr)
     vim.notify("Reloading Cargo Workspace")
     ---@diagnostic disable-next-line:param-type-mismatch
     client:request("rust-analyzer/reloadWorkspace", nil, function(err)
-      if err then
-        error(tostring(err))
-      end
+      if err then error(tostring(err)) end
       vim.notify("Cargo workspace reloaded")
     end, 0)
   end
 end
 
 local function user_sysroot_src()
-  return vim.tbl_get(vim.lsp.config["rust_analyzer"], "settings", "rust-analyzer", "cargo", "sysrootSrc")
+  return vim.tbl_get(
+    vim.lsp.config["rust_analyzer"],
+    "settings",
+    "rust-analyzer",
+    "cargo",
+    "sysrootSrc"
+  )
 end
 
 local function default_sysroot_src()
-  local sysroot = vim.tbl_get(vim.lsp.config["rust_analyzer"], "settings", "rust-analyzer", "cargo", "sysroot")
+  local sysroot =
+    vim.tbl_get(vim.lsp.config["rust_analyzer"], "settings", "rust-analyzer", "cargo", "sysroot")
   if not sysroot then
     local rustc = os.getenv("RUSTC") or "rustc"
     local result = vim.system({ rustc, "--print", "sysroot" }, { text = true }):wait()
@@ -126,7 +131,13 @@ return {
         on_dir(cargo_workspace_root or cargo_crate_dir)
       else
         vim.schedule(function()
-          vim.notify(("[rust_analyzer] cmd failed with code %d: %s\n%s"):format(output.code, cmd, output.stderr))
+          vim.notify(
+            ("[rust_analyzer] cmd failed with code %d: %s\n%s"):format(
+              output.code,
+              cmd,
+              output.stderr
+            )
+          )
         end)
       end
     end)

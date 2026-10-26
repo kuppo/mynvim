@@ -24,9 +24,7 @@ local util = require("lspconfig.util")
 local function oxlint_conf_mentions_typescript(root_dir)
   local fn = vim.fs.joinpath(root_dir, ".oxlintrc.json")
   for line in io.lines(fn) do
-    if line:find("typescript") then
-      return true
-    end
+    if line:find("typescript") then return true end
   end
   return false
 end
@@ -37,9 +35,7 @@ return {
     local cmd = "oxlint"
     if (config or {}).root_dir then
       local local_cmd = vim.fs.joinpath(config.root_dir, "node_modules/.bin", cmd)
-      if vim.fn.executable(local_cmd) == 1 then
-        cmd = local_cmd
-      end
+      if vim.fn.executable(local_cmd) == 1 then cmd = local_cmd end
     end
     return vim.lsp.rpc.start({ cmd, "--lsp" }, dispatchers)
   end,
@@ -100,12 +96,11 @@ return {
     end
     if settings.typeAware == nil and has_tsgolint then
       local ok, res = pcall(oxlint_conf_mentions_typescript, config.root_dir)
-      if ok and res then
-        settings = vim.tbl_extend("force", settings, { typeAware = true })
-      end
+      if ok and res then settings = vim.tbl_extend("force", settings, { typeAware = true }) end
     end
     local init_options = config.init_options or {}
-    init_options.settings = vim.tbl_extend("force", init_options.settings or {} --[[@as table]], settings)
+    init_options.settings =
+      vim.tbl_extend("force", init_options.settings or {} --[[@as table]], settings)
 
     init_params.initializationOptions = init_options
   end,

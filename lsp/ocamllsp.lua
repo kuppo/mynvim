@@ -14,18 +14,17 @@ local function switch_impl_intf(bufnr, client)
   local method_name = "ocamllsp/switchImplIntf"
   ---@diagnostic disable-next-line:param-type-mismatch
   if not client or not client:supports_method(method_name) then
-    return vim.notify(("method %s is not supported by any servers active on the current buffer"):format(method_name))
+    return vim.notify(
+      ("method %s is not supported by any servers active on the current buffer"):format(method_name)
+    )
   end
-  local uri = vim.lsp.util.make_given_range_params(nil, nil, bufnr, client.offset_encoding).textDocument.uri
-  if not uri then
-    return vim.notify("could not get URI for current buffer")
-  end
+  local uri =
+    vim.lsp.util.make_given_range_params(nil, nil, bufnr, client.offset_encoding).textDocument.uri
+  if not uri then return vim.notify("could not get URI for current buffer") end
   local params = { uri }
   ---@diagnostic disable-next-line:param-type-mismatch
   client:request(method_name, params, function(err, result)
-    if err then
-      error(tostring(err))
-    end
+    if err then error(tostring(err)) end
     if not result or #result == 0 then
       vim.notify("corresponding file cannot be determined")
     elseif #result == 1 then
@@ -35,9 +34,7 @@ local function switch_impl_intf(bufnr, client)
         result,
         { prompt = "Select an implementation/interface:", format_item = vim.uri_to_fname },
         function(choice)
-          if choice then
-            vim.cmd.edit(vim.uri_to_fname(choice))
-          end
+          if choice then vim.cmd.edit(vim.uri_to_fname(choice)) end
         end
       )
     end

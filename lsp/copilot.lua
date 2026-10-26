@@ -59,7 +59,8 @@ local function sign_in(bufnr, client)
         vim.fn.setreg("+", code)
         vim.fn.setreg("*", code)
         local continue = vim.fn.confirm(
-          "Copied your one-time code to clipboard.\n" .. "Open the browser to complete the sign-in process?",
+          "Copied your one-time code to clipboard.\n"
+            .. "Open the browser to complete the sign-in process?",
           "&Yes\n&No"
         )
         if continue == 1 then
@@ -76,7 +77,9 @@ local function sign_in(bufnr, client)
       end
 
       if result.status == "PromptUserDeviceFlow" then
-        vim.notify("Enter your one-time code " .. result.userCode .. " in " .. result.verificationUri)
+        vim.notify(
+          "Enter your one-time code " .. result.userCode .. " in " .. result.verificationUri
+        )
       elseif result.status == "AlreadySignedIn" then
         vim.notify("Already signed in as " .. result.user .. ".")
       end
@@ -95,9 +98,7 @@ local function sign_out(_, client)
         vim.notify(err.message, vim.log.levels.ERROR)
         return
       end
-      if result.status == "NotSignedIn" then
-        vim.notify("Not signed in.")
-      end
+      if result.status == "NotSignedIn" then vim.notify("Not signed in.") end
     end
   )
 end

@@ -43,12 +43,11 @@ return {
       config.apex_jar_path,
       "-Ddebug.internal.errors=true",
       "-Ddebug.semantic.errors=" .. tostring(config.apex_enable_semantic_errors or false),
-      "-Ddebug.completion.statistics=" .. tostring(config.apex_enable_completion_statistics or false),
+      "-Ddebug.completion.statistics="
+        .. tostring(config.apex_enable_completion_statistics or false),
       "-Dlwc.typegeneration.disabled=true",
     }
-    if config.apex_jvm_max_heap then
-      table.insert(local_cmd, "-Xmx" .. config.apex_jvm_max_heap)
-    end
+    if config.apex_jvm_max_heap then table.insert(local_cmd, "-Xmx" .. config.apex_jvm_max_heap) end
     ---@diagnostic enable: undefined-field
     table.insert(local_cmd, "apex.jorje.lsp.ApexLanguageServerLauncher")
 

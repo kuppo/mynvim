@@ -24,9 +24,7 @@ local function create_tinymist_command(command_name, client, bufnr)
     local title_str = export_type and ("Export " .. cmd_display) or cmd_display
     ---@type lsp.Handler
     local function handler(err, res)
-      if err then
-        return vim.notify(err.code .. ": " .. err.message, vim.log.levels.ERROR)
-      end
+      if err then return vim.notify(err.code .. ": " .. err.message, vim.log.levels.ERROR) end
       vim.notify(vim.inspect(res), vim.log.levels.INFO)
     end
     return client:exec_cmd({
@@ -64,7 +62,12 @@ return {
       "tinymist.startDefaultPreview",
     }) do
       local cmd_func, cmd_name, cmd_desc = create_tinymist_command(command, client, bufnr)
-      vim.api.nvim_buf_create_user_command(bufnr, "Lsp" .. cmd_name, cmd_func, { nargs = 0, desc = cmd_desc })
+      vim.api.nvim_buf_create_user_command(
+        bufnr,
+        "Lsp" .. cmd_name,
+        cmd_func,
+        { nargs = 0, desc = cmd_desc }
+      )
     end
   end,
 }
