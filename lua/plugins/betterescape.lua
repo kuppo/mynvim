@@ -3,39 +3,43 @@ return {
 
   event = "InsertEnter",
 
-  opts = {
-    default_mappings = false,
-    mappings = {
-      i = {
-        [" "] = {
-          ["<tab>"] = {
-            function()
-              vim.defer_fn(function()
-                vim.o.ul = vim.o.ul
-                require("luasnip").expand_or_jump()
-              end, 1)
-            end,
+  config = function()
+    vim.keymap.del("i", "jk")
+
+    require("better_escape").setup({
+      default_mappings = false,
+      mappings = {
+        i = {
+          [" "] = {
+            ["<tab>"] = {
+              function()
+                vim.defer_fn(function()
+                  vim.o.ul = vim.o.ul
+                  require("luasnip").expand_or_jump()
+                end, 1)
+              end,
+            },
+          },
+          j = {
+            k = "<Esc>",
           },
         },
-        j = {
-          k = "<Esc>",
+        c = {
+          j = {
+            k = "<C-c>",
+          },
+        },
+        v = {
+          j = {
+            k = "<Esc>",
+          },
+        },
+        s = {
+          j = {
+            k = "<Esc>",
+          },
         },
       },
-      c = {
-        j = {
-          k = "<C-c>",
-        },
-      },
-      v = {
-        j = {
-          k = "<Esc>",
-        },
-      },
-      s = {
-        j = {
-          k = "<Esc>",
-        },
-      },
-    },
-  },
+    })
+  end,
 }

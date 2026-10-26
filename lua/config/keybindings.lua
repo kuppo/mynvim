@@ -4,7 +4,7 @@ vim.g.maplocalleader = ","
 
 local map = vim.keymap.set
 
--- map("i", "jk", "<esc>")
+map("i", "jk", "<esc>")
 
 -- F1 to open help is annoying
 map({ "i", "n", "v" }, "<F1>", "")
