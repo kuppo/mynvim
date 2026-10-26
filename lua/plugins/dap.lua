@@ -224,19 +224,19 @@ return {
                 elements = {
                   {
                     id = "repl",
-                    size = 0.3,
+                    size = 0.4,
                   },
                   {
                     id = "console",
-                    size = 0.2,
+                    size = 0.3,
                   },
                   {
                     id = "disassembly",
-                    size = 0.5,
+                    size = 0.3,
                   },
                 },
                 position = "bottom",
-                size = 10,
+                size = 15,
               },
             },
           })
@@ -362,6 +362,10 @@ return {
         opts = {
           dapview_register = true,
           dapui_register = true,
+          columns = {
+            "address",
+            "instruction",
+          },
         },
       },
 
