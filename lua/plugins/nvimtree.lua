@@ -1,3 +1,32 @@
+local function my_on_attach(bufnr)
+  local api = require("nvim-tree.api")
+
+  local function opts(desc)
+    return {
+      desc = "nvim-tree: " .. desc,
+      buffer = bufnr,
+      noremap = true,
+      silent = true,
+      nowait = true,
+    }
+  end
+
+  -- default mappings
+  api.map.on_attach.default(bufnr)
+
+  -- custom mappings
+  local set = vim.keymap.set
+  local del = vim.keymap.del
+  del("n", "g?", { buf = bufnr })
+  del("n", "<c-]>", { buf = bufnr })
+
+  set("n", "?", api.tree.toggle_help, opts("Help"))
+  set("n", ".", api.tree.change_root_to_node, opts("Set root directory"))
+  set("n", "h", api.node.navigate.parent_close, opts("Close directory"))
+  set("n", "l", api.node.open.edit, opts("Open or edit"))
+  set("n", "<BS>", api.tree.change_root_to_parent, opts("Change root to parent directory"))
+end
+
 return {
   "nvim-tree/nvim-tree.lua",
 
@@ -19,6 +48,7 @@ return {
   end,
 
   opts = {
+    on_attach = my_on_attach,
     hijack_cursor = true,
     disable_netrw = false,
     hijack_netrw = true,
