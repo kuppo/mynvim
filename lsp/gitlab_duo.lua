@@ -115,18 +115,14 @@ local function save_token(token_data)
 end
 
 local function load_token()
-  if vim.fn.filereadable(config.token_file) == 0 then
-    return nil
-  end
+  if vim.fn.filereadable(config.token_file) == 0 then return nil end
 
   local blob = vim.fn.readblob(config.token_file)
   return vim.json.decode(blob)
 end
 
 local function is_token_expired(token_data)
-  if not token_data or not token_data.saved_at or not token_data.expires_in then
-    return true
-  end
+  if not token_data or not token_data.saved_at or not token_data.expires_in then return true end
   local token_age = os.time() - token_data.saved_at
   return token_age >= (token_data.expires_in - 60) -- 60 second buffer
 end
@@ -136,12 +132,19 @@ local function refresh_access_token(refresh_token)
 
   local response = curl_post(
     config.gitlab_url .. "/oauth/token",
-    string.format("client_id=%s&refresh_token=%s&grant_type=refresh_token", config.client_id, refresh_token),
+    string.format(
+      "client_id=%s&refresh_token=%s&grant_type=refresh_token",
+      config.client_id,
+      refresh_token
+    ),
     { ["Content-Type"] = "application/x-www-form-urlencoded" }
   )
 
   if response.status ~= 200 then
-    vim.notify("Failed to refresh token: " .. (response.body or "Unknown error"), vim.log.levels.ERROR)
+    vim.notify(
+      "Failed to refresh token: " .. (response.body or "Unknown error"),
+      vim.log.levels.ERROR
+    )
     return nil
   end
 
@@ -159,16 +162,12 @@ end
 local function get_valid_token()
   local token_data = load_token()
 
-  if not token_data then
-    return nil, "no_token"
-  end
+  if not token_data then return nil, "no_token" end
 
   if is_token_expired(token_data) then
     if token_data.refresh_token then
       local new_token_data = refresh_access_token(token_data.refresh_token)
-      if new_token_data then
-        return new_token_data.access_token, "refreshed"
-      end
+      if new_token_data then return new_token_data.access_token, "refreshed" end
       return nil, "refresh_failed"
     end
     return nil, "expired"
@@ -259,9 +258,7 @@ local function sign_in(client)
   vim.notify("Starting GitLab device authorization...", vim.log.levels.INFO)
 
   local auth_data = device_authorization()
-  if not auth_data then
-    return
-  end
+  if not auth_data then return end
 
   vim.ui.open(auth_data.verification_uri .. "?user_code=" .. auth_data.user_code)
 
@@ -382,7 +379,10 @@ return {
     -- Handle token validation errors
     client.handlers["$/gitlab/token/check"] = function(_, result)
       if result and result.reason then
-        vim.notify(string.format("GitLab Duo: %s - %s", result.reason, result.message or ""), vim.log.levels.ERROR)
+        vim.notify(
+          string.format("GitLab Duo: %s - %s", result.reason, result.message or ""),
+          vim.log.levels.ERROR
+        )
 
         -- Try to refresh if possible
         local token_data = load_token()
@@ -407,7 +407,10 @@ return {
     client.handlers["$/gitlab/featureStateChange"] = function(_, result)
       if result and result.state == "disabled" and result.checks then
         for _, check in ipairs(result.checks) do
-          vim.notify(string.format("GitLab Duo: %s", check.message or check.id), vim.log.levels.WARN)
+          vim.notify(
+            string.format("GitLab Duo: %s", check.message or check.id),
+            vim.log.levels.WARN
+          )
         end
       end
     end
@@ -425,7 +428,10 @@ return {
     end
 
     if not token then
-      vim.notify("GitLab Duo: Not authenticated. Run :LspGitLabDuoSignIn to sign in.", vim.log.levels.WARN)
+      vim.notify(
+        "GitLab Duo: Not authenticated. Run :LspGitLabDuoSignIn to sign in.",
+        vim.log.levels.WARN
+      )
     elseif status == "refreshed" then
       vim.notify("GitLab Duo: Token refreshed automatically", vim.log.levels.INFO)
     end

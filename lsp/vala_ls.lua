@@ -5,9 +5,7 @@
 local meson_matcher = function(path)
   local pattern = "meson.build"
   local f = vim.fn.glob(table.concat({ path, pattern }, "/"))
-  if f == "" then
-    return nil
-  end
+  if f == "" then return nil end
   for line in io.lines(f) do
     -- skip meson comments
     if not line:match("^%s*#.*") then

@@ -48,9 +48,7 @@ return {
     -- Add support for golangci-lint V1 (in V2 `--out-format=json` was replaced by
     -- `--output.json.path=stdout`).
 
-    if vim.fn.executable("golangci-lint") ~= 1 then
-      return
-    end
+    if vim.fn.executable("golangci-lint") ~= 1 then return end
 
     local v1, v2 = false, false
     -- PERF: `golangci-lint version` is very slow (about 0.1 sec) so let's find
@@ -65,8 +63,6 @@ return {
       local version = vim.system({ "golangci-lint", "version" }):wait()
       v1 = string.match(version.stdout, "version v?1%.")
     end
-    if v1 then
-      config.init_options.command = { "golangci-lint", "run", "--out-format", "json" }
-    end
+    if v1 then config.init_options.command = { "golangci-lint", "run", "--out-format", "json" } end
   end,
 }

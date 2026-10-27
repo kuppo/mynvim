@@ -81,9 +81,7 @@ return {
     local cmd = "vscode-eslint-language-server"
     if (config or {}).root_dir then
       local local_cmd = vim.fs.joinpath(config.root_dir, "node_modules/.bin", cmd)
-      if vim.fn.executable(local_cmd) == 1 then
-        cmd = local_cmd
-      end
+      if vim.fn.executable(local_cmd) == 1 then cmd = local_cmd end
     end
     return vim.lsp.rpc.start({ cmd, "--stdio" }, dispatchers)
   end,
@@ -116,15 +114,14 @@ return {
     -- As stated in the documentation above, this LSP supports monorepos and simple projects.
     -- We select then from the project root, which is identified by the presence of a package
     -- manager lock file.
-    local root_markers = { "package-lock.json", "yarn.lock", "pnpm-lock.yaml", "bun.lockb", "bun.lock" }
+    local root_markers =
+      { "package-lock.json", "yarn.lock", "pnpm-lock.yaml", "bun.lockb", "bun.lock" }
     -- Give the root markers equal priority by wrapping them in a table
     root_markers = vim.fn.has("nvim-0.11.3") == 1 and { root_markers, { ".git" } }
       or vim.list_extend(root_markers, { ".git" })
 
     -- exclude deno
-    if vim.fs.root(bufnr, { "deno.json", "deno.jsonc", "deno.lock" }) then
-      return
-    end
+    if vim.fs.root(bufnr, { "deno.json", "deno.jsonc", "deno.lock" }) then return end
 
     -- We fallback to the current working directory if no project root is found
     local project_root = vim.fs.root(bufnr, root_markers) or vim.fn.getcwd()
@@ -144,9 +141,7 @@ return {
       upward = true,
       stop = vim.fs.dirname(project_root),
     })[1]
-    if not is_buffer_using_eslint then
-      return
-    end
+    if not is_buffer_using_eslint then return end
 
     on_dir(project_root)
   end,
@@ -208,15 +203,11 @@ return {
   end,
   handlers = {
     ["eslint/openDoc"] = function(_, result)
-      if result then
-        vim.ui.open(result.url)
-      end
+      if result then vim.ui.open(result.url) end
       return {}
     end,
     ["eslint/confirmESLintExecution"] = function(_, result)
-      if not result then
-        return
-      end
+      if not result then return end
       return 4 -- approved
     end,
     ["eslint/probeFailed"] = function()

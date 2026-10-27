@@ -16,9 +16,7 @@ local function buf_build(client, bufnr)
   local win = vim.api.nvim_get_current_win()
   local params = vim.lsp.util.make_position_params(win, client.offset_encoding)
   client:request("textDocument/build", params, function(err, result)
-    if err then
-      error(tostring(err))
-    end
+    if err then error(tostring(err)) end
     local texlab_build_status = {
       [0] = "Success",
       [1] = "Error",
@@ -33,9 +31,7 @@ local function buf_search(client, bufnr)
   local win = vim.api.nvim_get_current_win()
   local params = vim.lsp.util.make_position_params(win, client.offset_encoding)
   client:request("textDocument/forwardSearch", params, function(err, result)
-    if err then
-      error(tostring(err))
-    end
+    if err then error(tostring(err)) end
     local texlab_forward_status = {
       [0] = "Success",
       [1] = "Error",
@@ -55,9 +51,7 @@ end
 
 local function dependency_graph(client)
   client:exec_cmd({ command = "texlab.showDependencyGraph" }, { bufnr = 0 }, function(err, result)
-    if err then
-      return vim.notify(err.code .. ": " .. err.message, vim.log.levels.ERROR)
-    end
+    if err then return vim.notify(err.code .. ": " .. err.message, vim.log.levels.ERROR) end
     vim.notify("The dependency graph has been generated:\n" .. result, vim.log.levels.INFO)
   end)
 end
@@ -88,9 +82,7 @@ local function buf_find_envs(client, bufnr)
     command = "texlab.findEnvironments",
     arguments = { vim.lsp.util.make_position_params(win, client.offset_encoding) },
   }, { bufnr = bufnr }, function(err, result)
-    if err then
-      return vim.notify(err.code .. ": " .. err.message, vim.log.levels.ERROR)
-    end
+    if err then return vim.notify(err.code .. ": " .. err.message, vim.log.levels.ERROR) end
     local env_names = {}
     local max_length = 1
     for _, env in ipairs(result) do

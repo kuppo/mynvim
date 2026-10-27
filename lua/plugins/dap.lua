@@ -57,15 +57,60 @@ return {
 
     config = function()
       -- keymaps
-      vim.keymap.set("n", "<F5>", ":DapContinue<cr>", { desc = "Start/Continue", silent = true, buffer = true })
-      vim.keymap.set("n", "<F6>", ":DapRestartFrame<cr>", { desc = "Restart", silent = true, buffer = true })
-      vim.keymap.set("n", "<F7>", ":DapTerminate<cr>", { desc = "Terminate", silent = true, buffer = true })
-      vim.keymap.set("n", "<F9>", ":DapStepBack<cr>", { desc = "Step back", silent = true, buffer = true })
-      vim.keymap.set("n", "<F10>", ":DapStepOver<cr>", { desc = "Step over", silent = true, buffer = true })
-      vim.keymap.set("n", "<F11>", ":DapStepInto<cr>", { desc = "Step into", silent = true, buffer = true })
-      vim.keymap.set("n", "<F12>", ":DapStepOut<cr>", { desc = "Step out", silent = true, buffer = true })
-      vim.keymap.set("n", "<leader>de", ":DapEval<cr>", { desc = "Eval", silent = true, buffer = true })
-      vim.keymap.set("n", "<Leader>dr", ":DapToggleRepl<cr>", { desc = "Toggle REPL", silent = true })
+      vim.keymap.set(
+        "n",
+        "<F5>",
+        ":DapContinue<cr>",
+        { desc = "Start/Continue", silent = true, buffer = true }
+      )
+      vim.keymap.set(
+        "n",
+        "<F6>",
+        ":DapRestartFrame<cr>",
+        { desc = "Restart", silent = true, buffer = true }
+      )
+      vim.keymap.set(
+        "n",
+        "<F7>",
+        ":DapTerminate<cr>",
+        { desc = "Terminate", silent = true, buffer = true }
+      )
+      vim.keymap.set(
+        "n",
+        "<F9>",
+        ":DapStepBack<cr>",
+        { desc = "Step back", silent = true, buffer = true }
+      )
+      vim.keymap.set(
+        "n",
+        "<F10>",
+        ":DapStepOver<cr>",
+        { desc = "Step over", silent = true, buffer = true }
+      )
+      vim.keymap.set(
+        "n",
+        "<F11>",
+        ":DapStepInto<cr>",
+        { desc = "Step into", silent = true, buffer = true }
+      )
+      vim.keymap.set(
+        "n",
+        "<F12>",
+        ":DapStepOut<cr>",
+        { desc = "Step out", silent = true, buffer = true }
+      )
+      vim.keymap.set(
+        "n",
+        "<leader>de",
+        ":DapEval<cr>",
+        { desc = "Eval", silent = true, buffer = true }
+      )
+      vim.keymap.set(
+        "n",
+        "<Leader>dr",
+        ":DapToggleRepl<cr>",
+        { desc = "Toggle REPL", silent = true }
+      )
       vim.keymap.set("n", "<Leader>dl", function()
         require("dap").run_last()
       end, { desc = "Run last" })
@@ -224,19 +269,19 @@ return {
                 elements = {
                   {
                     id = "repl",
-                    size = 0.3,
+                    size = 0.4,
                   },
                   {
                     id = "console",
-                    size = 0.2,
+                    size = 0.3,
                   },
                   {
                     id = "disassembly",
-                    size = 0.5,
+                    size = 0.3,
                   },
                 },
                 position = "bottom",
-                size = 10,
+                size = 15,
               },
             },
           })
@@ -362,6 +407,10 @@ return {
         opts = {
           dapview_register = true,
           dapui_register = true,
+          columns = {
+            "address",
+            "instruction",
+          },
         },
       },
 

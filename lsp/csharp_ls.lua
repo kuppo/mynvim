@@ -24,7 +24,9 @@ return {
   root_dir = function(bufnr, on_dir)
     local fname = vim.api.nvim_buf_get_name(bufnr)
     on_dir(
-      util.root_pattern("*.sln")(fname) or util.root_pattern("*.slnx")(fname) or util.root_pattern("*.csproj")(fname)
+      util.root_pattern("*.sln")(fname)
+        or util.root_pattern("*.slnx")(fname)
+        or util.root_pattern("*.csproj")(fname)
     )
   end,
   filetypes = { "cs" },
@@ -32,9 +34,7 @@ return {
     AutomaticWorkspaceInit = true,
   },
   get_language_id = function(_, ft)
-    if ft == "cs" then
-      return "csharp"
-    end
+    if ft == "cs" then return "csharp" end
     return ft
   end,
 }

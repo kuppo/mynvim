@@ -19,9 +19,7 @@
 local util = require("lspconfig.util")
 local bin_name = "nomad-lsp"
 
-if vim.fn.has("win32") == 1 then
-  bin_name = bin_name .. ".exe"
-end
+if vim.fn.has("win32") == 1 then bin_name = bin_name .. ".exe" end
 
 ---@type vim.lsp.Config
 return {

@@ -26,8 +26,6 @@ return {
     }
     local fname = vim.api.nvim_buf_get_name(bufnr)
     local match = util.root_pattern(patterns)(fname)
-    if match then
-      on_dir(vim.fs.root(match, ".git") or match)
-    end
+    if match then on_dir(vim.fs.root(match, ".git") or match) end
   end,
 }
