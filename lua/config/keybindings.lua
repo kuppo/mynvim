@@ -62,8 +62,8 @@ map("v", "<A-j>", "<cmd>m '>+1<CR>gv=gv", { desc = "Move selection down" })
 map("v", "<A-k>", "<cmd>m '<-2<CR>gv=gv", { desc = "Move selection up" })
 
 -- Better indenting in visual mode
--- map("v", "<", "<gv", { desc = "Indent left and reselect" })
--- map("v", ">", ">gv", { desc = "Indent right and reselect" })
+map("v", "<", "<gv", { desc = "Indent left and reselect" })
+map("v", ">", ">gv", { desc = "Indent right and reselect" })
 
 map("n", "<leader>fe", "<cmd>Explore<CR>", { desc = "Open file explorer" })
 map("n", "<leader>ff", ":find ", { desc = "Find file" })
