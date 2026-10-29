@@ -1,8 +1,6 @@
 return {
   "saghen/blink.cmp",
 
-  event = { "InsertEnter", "CmdlineEnter" },
-
   dependencies = {
     {
       "saghen/blink.lib",
@@ -13,8 +11,10 @@ return {
   },
 
   build = function()
-    require("blink.cmp").build():pwait()
+    require("blink.cmp").build():pwait(60000)
   end,
+
+  event = { "InsertEnter", "CmdlineEnter" },
 
   opts = {
     snippets = { preset = "luasnip" },
