@@ -3,7 +3,7 @@ return {
 
   event = "InsertEnter",
 
-  dependencies = "saghen/blink.lib",
+  dependencies = { "saghen/blink.lib", lazy = true },
 
   version = "*",
 

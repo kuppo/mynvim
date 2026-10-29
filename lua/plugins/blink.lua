@@ -4,6 +4,10 @@ return {
   event = { "InsertEnter", "CmdlineEnter" },
 
   dependencies = {
+    {
+      "saghen/blink.lib",
+      lazy = true,
+    },
     "L3MON4D3/LuaSnip",
     "nvim-orgmode/orgmode",
   },
