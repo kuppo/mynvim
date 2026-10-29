@@ -21,7 +21,6 @@ return {
 
   config = function()
     require("project").setup({
-      enable_autochdir = true,
       scope_chdir = "win",
       fzf_lua = {
         enabled = true,
