@@ -19,7 +19,7 @@ return {
   opts = {
     snippets = { preset = "luasnip" },
     sources = {
-      default = { "lsp", "snippets", "buffer", "path" },
+      default = { "snippets", "lsp", "buffer", "path" },
       per_filetype = {
         org = { "orgmode" },
       },
