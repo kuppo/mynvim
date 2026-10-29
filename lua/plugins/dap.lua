@@ -180,7 +180,11 @@ return {
           type = "codelldb",
           request = "launch",
           program = function()
-            return vim.fn.getcwd() .. "/build/debug/bin/debug-executable"
+            return vim.fn.input(
+              "Path to executable: ",
+              vim.fn.getcwd() .. "/build/debug/bin/",
+              "file"
+            )
           end,
           cwd = "${workspaceFolder}",
           stopOnEntry = false,
