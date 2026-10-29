@@ -5,16 +5,17 @@ return {
       [[
         CC := clang
         CXX := clang++
-        CFLAGES = -Wall -Werror -std={cstd}
-        CXXFLAGS =
+        CFLAGES = $(common_flags) -std=c11
+        CXXFLAGES = $(common_flags) -std=c++20
 
+        common_flags = -Wall -Werror
         exe_name := {exe_name}
 
-        .PHONY: clean debug release
-        .DEFAULT_GOLA: debug
+        .DEFAULT_GOAL = debug
+        .PHONY: clean debug release run
 
         release: CFLAGES += -O3 -g
-        release: build/release/bin/$(exe_name) | build/release/bin
+        release: build/release/bin/$(exe_name)
 
         debug: CFLAGES += -g
         debug: build/debug/bin/exe_debug
@@ -22,10 +23,13 @@ return {
         clean:
         \trm -rf ./build
 
-        build build/release build/debug build/release/bin build/release/bin build/lib bulid/tests:
+        build build/release build/debug build/release/bin build/debug/bin build/lib bulid/tests:
         \tmkdir -p $@
+
+        run:
+        \tbuild/debug/exe_debug
       ]],
-      { cstd = i(1, "<C standard>"), exe_name = i(2, "<executable name>") },
+      { exe_name = i(1, "<executable name>") },
       { indent_string = [[\t]] }
     )
   ),
