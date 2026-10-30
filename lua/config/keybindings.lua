@@ -82,6 +82,8 @@ map("n", "<leader>fS", "<cmd>wa ++p<cr>", { desc = "Save all buffers" })
 -- quit
 map("n", "<leader>qq", "<cmd>wa<cr><cmd>qa<cr>", { desc = "Quit nvim" })
 map("n", "<leader>qQ", "<cmd>qa!<cr>", { desc = "Quit nvim" })
+map("n", "<leader>qr", "<cmd>restart<cr>", { desc = "Restart" })
+map("n", "<leader>qR", "<cmd>restart!<cr>", { desc = "RESTART" })
 
 -- quick messages check
 map("n", "<leader>um", "<cmd>messages<cr>", { desc = "Check messages" })
