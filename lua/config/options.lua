@@ -33,15 +33,12 @@ vo.mouse = "a"
 
 vo.autoread = true
 
-vo.scrolloff = 8
+vo.scrolloff = 4
 
 vo.expandtab = true
-vo.smarttab = true
-vo.tabstop = 2
-vo.softtabstop = 2
+vo.softtabstop = -1
 vo.shiftwidth = 2
 vo.autoindent = true
-vo.smartindent = true
 
 vo.breakindent = true
 
@@ -53,7 +50,7 @@ vo.timeoutlen = 300
 
 vo.termguicolors = true
 
-vo.textwidth = 85
+vo.textwidth = 80
 vo.colorcolumn = "80,120"
 vo.showmatch = true
 vo.matchtime = 2
