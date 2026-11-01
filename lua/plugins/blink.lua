@@ -58,10 +58,11 @@ return {
       sorts = { "exact", "score", "sort_text" },
     },
     completion = {
+      menu = { auto_show = true },
+      trigger = { show_in_snippet = false },
       documentation = { auto_show = true },
-      keyword = { range = "full" },
       ghost_text = { enabled = true },
-      -- list = { selection = { preselect = false } },
+      list = { selection = { preselect = false } },
     },
     signature = { enabled = true },
     cmdline = {
@@ -70,7 +71,7 @@ return {
       },
       -- sources = { "omni", "cmdline" },
       completion = {
-        -- list = { selection = { preselect = false } },
+        list = { selection = { preselect = true } },
         menu = { auto_show = true },
       },
     },
