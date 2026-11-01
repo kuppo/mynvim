@@ -19,12 +19,10 @@ return {
     },
   },
 
-  config = function()
-    require("project").setup({
-      scope_chdir = "win",
-      fzf_lua = {
-        enabled = true,
-      },
-    })
-  end,
+  opts = {
+    scope_chdir = "win",
+    fzf_lua = {
+      enabled = true,
+    },
+  },
 }
