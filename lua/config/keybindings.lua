@@ -66,7 +66,7 @@ map("v", "<", "<gv", { desc = "Indent left and reselect" })
 map("v", ">", ">gv", { desc = "Indent right and reselect" })
 
 -- reselect pasted text
-map("n", "p", "p`[v`]")
+-- map("n", "p", "p`[v`]")
 
 map("n", "<leader>fe", "<cmd>Explore<CR>", { desc = "Open file explorer" })
 map("n", "<leader>ff", ":find ", { desc = "Find file" })
