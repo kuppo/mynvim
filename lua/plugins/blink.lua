@@ -7,7 +7,6 @@ return {
       lazy = true,
     },
     "L3MON4D3/LuaSnip",
-    "nvim-orgmode/orgmode",
   },
 
   build = function()
@@ -20,16 +19,6 @@ return {
     snippets = { preset = "luasnip" },
     sources = {
       default = { "snippets", "lsp", "buffer", "path" },
-      per_filetype = {
-        org = { "orgmode" },
-      },
-      providers = {
-        orgmode = {
-          name = "Orgmode",
-          module = "orgmode.org.autocompletion.blink",
-          fallbacks = { "buffer" },
-        },
-      },
     },
     keymap = {
       preset = "super-tab",
