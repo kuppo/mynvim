@@ -58,21 +58,14 @@ return {
       sorts = { "exact", "score", "sort_text" },
     },
     completion = {
-      menu = { auto_show = true },
       trigger = { show_in_snippet = false },
       documentation = { auto_show = true },
       ghost_text = { enabled = true },
-      list = { selection = { preselect = false } },
     },
     signature = { enabled = true },
     cmdline = {
       keymap = {
         preset = "inherit",
-      },
-      -- sources = { "omni", "cmdline" },
-      completion = {
-        list = { selection = { preselect = true } },
-        menu = { auto_show = true },
       },
     },
   },
